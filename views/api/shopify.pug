@@ -1,0 +1,49 @@
+extends ../layout
+
+block content
+  .pb-2.mt-2.mb-4.border-bottom
+    h2
+      i.fab.fa-shopify(style='color: #99b755').fa-sm
+      | Shopify API
+
+  .btn-group.d-flex(role='group')
+    a.btn.btn-success(href='https://www.npmjs.com/package/shopify-api-node', target='_blank').w-100
+      i.far.fa-file-alt.fa-sm
+      | Client Docs
+    a.btn.btn-success(href='https://shopify.dev/concepts/shopify-introduction', target='_blank').w-100
+      i.far.fa-check-square.fa-sm
+      | Shopify Developers Overview
+    a.btn.btn-success(href='https://shopify.dev/docs/admin-api/rest/reference', target='_blank').w-100
+      i.fas.fa-code-branch.fa-sm
+      | REST API Endpoints
+
+  br
+
+  .card.bg-light.card-body.mb-3
+    h4 Create a New Product
+    form(role='form', method='POST')
+      input(type='hidden', name='_csrf', value=_csrf)
+      .form-group
+        label(for="product_title") Product title:
+        input.form-control(type='text', name='product_title' id="product_title", autofocus)
+        p.form-text This product will be created in your Shopify Store
+      button.btn.btn-primary(type='submit')
+        i.fa.fa-save.fa-sm
+        |  Create
+
+  br
+
+  .lead Latest
+    strong  #{orders.length}
+    |  orders in your store
+
+  ul.media-list
+    for order in orders
+      li.media
+        a.float-left(href='#')
+          //- - var image = order.user.profile_image_url.replace('_normal', '');
+          //- img.media-object(src=image, style='width: 64px; height: 64px;')
+        .media-body
+          strong.media-heading ID: #{order.id} - 
+          span Email: #{order.email} - 
+          span.text-muted  Price: #{order.total_price}
